@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GrooveLink</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo">GrooveLink</div>
+
+     <!-- Hamburger Menu For Smaller Screens -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <nav id="navMenu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="submit.html">Submit Event</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="submit-cta reveal">
+      <h2>Submit Your Dance Event</h2>
+      <form action="events.html" method="post" class="event-form" id="eventForm">
+        <label for="event-name">Event Name</label>
+        <input type="text" id="event-name" name="event-name" required>
+
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" required>
+
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="description">Event Description</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+
+        <label for="event-link">Event Link (https://...)</label>
+        <input type="url" id="event-link" name="event-link" placeholder="https://...">
+
+        <label for="category">Category</label>
+        <select id="category" name="category" required>
+          <option value="Hip Hop">Hip Hop</option>
+          <option value="Ballet">Ballet</option>
+          <option value="Contemporary">Contemporary</option>
+          <option value="Cultural">Cultural</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <button type="submit" class="btn submit-btn">Submit Event</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="submit.js"></script>
+
+   <footer>
+    <div class="footer-links">
+      <a href="index.html">Home</a> |
+      <a href="events.html">Events</a> |
+      <a href="submit.html">Submit</a> |
+      <a href="about.html">About</a> |
+      <a href="contact.html">Contact</a>
+    </div>
+    <p>© 2025 GrooveLink. All rights reserved.</p>
+  </footer>
+
+  <script src="menu.js"></script>
+  <script src="scroll.js"></script>
+
+</body>
+</html>
+

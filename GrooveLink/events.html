@@ -1,0 +1,76 @@
+<!-- events.html: Updated to remove redundant static event cards. Now the container is empty, and events.js will populate it with hardcoded static events + any dynamic ones. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags for charset and viewport responsiveness. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GrooveLink - Events</title>
+  <!-- Link to the stylesheet for styling. -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <!-- Header -->
+<header>
+  <div class="logo">GrooveLink</div>
+
+  <!-- Hamburger Menu For Smaller Screens -->
+<div class="hamburger" id="hamburger">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+  <nav id="navMenu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="submit.html">Submit Event</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+  <!-- Main content area. -->
+  <main>
+    <section class="featured-events reveal" id="events">
+      <h2>Major Dance Events Across South Africa - 2025</h2>
+
+      <section class="search-filter">
+        <input type="text" id="searchBar" placeholder="Search events / by location...">
+        <select id="categoryFilter">
+          <option value="">All Categories</option>
+          <option value="Hip Hop">Hip Hop</option>
+          <option value="Ballet">Ballet</option>
+          <option value="Contemporary">Contemporary</option>
+          <option value="Cultural">Cultural</option>
+          <option value="Other">Other</option>
+        </select>
+      <input type="date" id="dateFilter">
+    </section>
+
+      <div class="event-cards">
+        <!-- No static cards here; events.js will populate with hardcoded static events + dynamic ones. -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer with links and copyright. -->
+  <footer>
+    <div class="footer-links">
+      <a href="index.html">Home</a> |
+      <a href="events.html">Events</a> |
+      <a href="submit.html">Submit</a> |
+      <a href="about.html">About</a>
+    </div>
+    <p>© 2025 GrooveLink. All rights reserved.</p>
+  </footer>
+
+
+  <!-- Scripts: menu.js for mobile nav, scroll.js for reveal animations, events.js for dynamic events and filtering. -->
+  <script src="menu.js"></script>
+  <script src="scroll.js"></script>
+  <script src="events.js"></script>
+</body>
+</html>

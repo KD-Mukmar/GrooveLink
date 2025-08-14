@@ -548,10 +548,58 @@ footer {
     padding: 0.75rem 1.5rem; /* Smaller buttons on mobile */
     font-size: 1rem;
   }
+
+  .featured-events {
+    padding: 2rem 1rem;
+  }
+
+  .event-cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .event-card {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+    transform: translateY(0); /* Remove downward shift to ensure visibility */
+    padding: 1rem;
+  }
+
+  .event-card:hover {
+    transform: translateY(-5px); /* Maintain hover effect */
+  }
+
+  .view-all {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+  }
+  .features {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .feature {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+    transform: translateY(0); /* Remove downward shift */
+  }
   #events-list {
     height: 50vh;
-    background-position: 50% 50%; /* Center on mobile */
+    background: url('background_event.jpg') no-repeat center center/contain; /* Use contain to show full image */
+    background-size: contain; /* Ensure entire image fits within viewport */
+    background-position: center center; /* Center image */
   }
+
+  .events_list-overlay {
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+
   #events-list h2 {
     font-size: 2rem;
   }

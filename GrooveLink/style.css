@@ -162,20 +162,16 @@ nav ul {
 }
 
 .event-card {
-  background-color: #1f1f1f;
-  border: 1px solid #333;
-  border-radius: 10px;
-  padding: 1rem 1.5rem;
-  width: 250px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  opacity: 1;
+  background: #1f1f1f;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(8, 132, 235, 0.918);
+  transition: transform 0.3s ease;
   transform: translateY(20px);
 }
 
 .event-card:hover {
   transform: translateY(-5px);
-  border-color: #00bfff;
-  box-shadow: 0 0 15px rgba(0, 191, 255, 0.4);
 }
 
 .event-card h3 {
@@ -189,10 +185,62 @@ nav ul {
   font-weight: bold;
 }
 
+#events-list {
+  position: relative;
+  height: 60vh; /* Adjust height as needed, e.g., shorter than hero */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  background: url('background_event.jpg') no-repeat 50% 30%/cover; /* Shift image down, replace with your path */
+  overflow: hidden;
+  margin: 2rem 0; /* Spacing from other sections */
+}
+
+.events_list-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dark transparent overlay */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+#events-list h2 {
+  font-size: 2.5rem; /* Slightly smaller than hero h1 */
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 #events {
-  background: url('background_event_2.jpg') no-repeat 50% 30%/cover; /* Replace with your image path */
-  overflow: hidden; /* Hide overflow for video/image */
-  
+  position: relative;
+  min-height: 60vh; /* Minimum height to ensure content is visible */
+  background: url('hero.jpg') no-repeat 50% 30%/cover; /* Replace with your image path, shifted down */
+  overflow: hidden;
+  padding: 2rem 0;
+  margin: 2rem 0; /* Spacing from other sections */
+}
+
+#events::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dark transparent overlay */
+  z-index: 1; /* Behind content but over background */
+}
+
+#events > * {
+  position: relative;
+  z-index: 2; /* Ensure content is above overlay */
 }
 
 
@@ -216,12 +264,11 @@ nav ul {
 }
 
 .feature {
-  width: 200px;
-  background-color: #1c1c1c;
-  border-radius: 10px;
-  padding: 1rem;
-  border: 1px solid #2a2a2a;
-  opacity: 0;
+  background: #1f1f1f;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(8, 132, 235, 0.918);
+  transition: transform 0.3s ease;
   transform: translateY(20px);
 }
 
@@ -501,4 +548,12 @@ footer {
     padding: 0.75rem 1.5rem; /* Smaller buttons on mobile */
     font-size: 1rem;
   }
+  #events-list {
+    height: 50vh;
+    background-position: 50% 50%; /* Center on mobile */
+  }
+  #events-list h2 {
+    font-size: 2rem;
+  }
+  
 }

@@ -43,11 +43,19 @@
         <label for="message">Message</label>
         <textarea id="message" name="message" rows="4" required></textarea>
 
-       <button type="submit" class="btn submit-btn"><a href="thankyou.html">Send Message</a></button>
+       <button type="submit" class="btn submit-btn">Send Message</button>
       </form>
     </section>
   </main>
 
+ <script>
+    document.getElementById("event-form").addEventListener("submit", function(e) {
+        e.preventDefault();
+        // Simulate sending message
+        window.location.href = "thankyou.html";
+    });
+  </script>
+  
   <footer>
     <div class="footer-links">
       <a href="index.html">Home</a> |

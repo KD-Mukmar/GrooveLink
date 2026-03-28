@@ -1,3 +1,4 @@
+console.log("NEW CODE RUNNING");
 window.addEventListener("DOMContentLoaded", function() {
     // Original hardcoded events with categories that will display on the browser
  

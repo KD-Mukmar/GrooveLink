@@ -3,7 +3,7 @@ console.log("NEW CODE RUNNING");
 window.addEventListener("DOMContentLoaded", function() {
 
     // Load events from Supabase Backend //
-    const API_URL = "https://qkdtgcvmygpivdcikhic.supabase.co";
+    const API_URL = "https://qkdtgcvmygpivdcikhic.supabase.co/rest/v1/events";
     const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrZHRnY3ZteWdwaXZkY2lraGljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NzcwNDAsImV4cCI6MjA4OTQ1MzA0MH0.wGCRhq3coiQtI47fQVwfjA_45-t6ekzIoL6EbEQhIlk";
 
     let allEvents = [];
@@ -12,11 +12,13 @@ window.addEventListener("DOMContentLoaded", function() {
 
     function loadEvents() {
         fetch(API_URL + "?select=*", {
-            headers: {
-                "apikey": API_KEY,
-                "Authorization": "Bearer " + API_KEY
-            }
-        })
+    method: "GET",
+    headers: {
+        "apikey": API_KEY,
+        "Authorization": "Bearer " + API_KEY,
+        "Content-Type": "application/json"
+    }
+})
         .then(res => res.json())
         .then(data => {
 

@@ -6,23 +6,20 @@
   <title>GrooveLink SA</title>
   <link rel="stylesheet" href="style.css" />
 
-  <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
-    // ←←← SUPABASE CREDENTIALS ←←←
-    const supabaseUrl = 'https://qkdtgcvmygpivdcikhic.supabase.co';
-    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrZHRnY3ZteWdwaXZkY2lraGljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NzcwNDAsImV4cCI6MjA4OTQ1MzA0MH0.wGCRhq3coiQtI47fQVwfjA_45-t6ekzIoL6EbEQhIlk';
+  <script>
+      const supabaseUrl = 'https://qkdtgcvmygpivdcikhic.supabase.co';
+      const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrZHRnY3ZteWdwaXZkY2lraGljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NzcwNDAsImV4cCI6MjA4OTQ1MzA0MH0.wGCRhq3coiQtI47fQVwfjA_45-t6ekzIoL6EbEQhIlk';   // your anon key
   
-    const supabase = createClient(supabaseUrl, supabaseAnonKey);
-  
-    // Make supabase available to other scripts
-    window.supabase = supabase;
+      // Create the client once and make it available globally
+      window.supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
   </script>
   
 </head>
   
 <body>
-
   <!-- Header -->
 <header>
   <div class="logo">GrooveLink</div>
@@ -140,8 +137,11 @@
     <p>© 2025 GrooveLink SA. All rights reserved.</p>
   </footer>
 
+<!-- Your other scripts -->
+  <script src="events.js"></script>
   <script src="menu.js"></script>
   <script src="scroll.js"></script>
-
+  <script src="submit.js"></script>
+  
 </body>
 </html>

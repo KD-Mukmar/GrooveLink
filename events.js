@@ -2,10 +2,18 @@ window.addEventListener("DOMContentLoaded", async function() {
     
     // ==================== SUPABASE CLIENT (already created in index.html) ====================
     // Use the global 'supabase' created in index.html
-    if (typeof supabase === 'undefined') {
-        console.error("Supabase client is not loaded. Make sure the script is in index.html");
+    // Wait a tiny bit in case scripts are still loading
+    if (typeof supabase === 'undefined' || !supabase) {
+        console.error("❌ Supabase client is not loaded. Check that the Supabase script is in index.html and loads before events.js");
+        // Optional: show a user-friendly message on the page
+        const container = document.querySelector(".event-cards");
+        if (container) {
+            container.innerHTML = "<h4 style='color:red;'>Error: Could not connect to database. Please refresh the page.</h4>";
+        }
         return;
     }
+
+    console.log("✅ Supabase client is ready");
 
     // ==================== FETCH EVENTS FROM SUPABASE ====================
     let allEvents = [];

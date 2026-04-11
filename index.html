@@ -6,8 +6,8 @@
   <title>GrooveLink SA</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-  
 <body>
+
   <!-- Header -->
 <header>
   <div class="logo">GrooveLink</div>
@@ -125,27 +125,8 @@
     <p>© 2025 GrooveLink SA. All rights reserved.</p>
   </footer>
 
-  <!-- 1. Load Supabase library first -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
-  <!-- 2. Initialize the client and make it globally available -->
-  <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          const supabaseUrl = 'https://qkdtgcvmygpivdcikhic.supabase.co';
-          const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrZHRnY3ZteWdwaXZkY2lraGljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NzcwNDAsImV4cCI6MjA4OTQ1MzA0MH0.wGCRhq3coiQtI47fQVwfjA_45-t6ekzIoL6EbEQhIlk';
-  
-          if (!window.supabase) {
-              window.supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
-              console.log("✅ Supabase client initialized successfully");
-          }
-      });
-  </script>
-  
-  <!-- 3. Now load JS files -->
-  <script src="events.js"></script>
-   <script src="menu.js"></script>
-    <script src="scroll.js"></script>
-    <script src="submit.js"></script>
-  
+  <script src="menu.js"></script>
+  <script src="scroll.js"></script>
+
 </body>
 </html>

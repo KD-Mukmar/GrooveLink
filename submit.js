@@ -29,14 +29,15 @@ document.getElementById("eventForm").addEventListener("submit", async function (
     if (error) throw error;
 
     // Step 2: Call Edge Function to send email notification
-    await fetch(`${SUPABASE_URL}/functions/v1/notify-new-event`, {
+    // (fire and forget — don't block redirect if this fails)
+    fetch("https://qkdtgcvmygpivdcikhic.supabase.co/functions/v1/notify-new-event", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrZHRnY3ZteWdwaXZkY2lraGljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NzcwNDAsImV4cCI6MjA4OTQ1MzA0MH0.wGCRhq3coiQtI47fQVwfjA_45-t6ekzIoL6EbEQhIlk",
       },
       body: JSON.stringify({ record: newEvent }),
-    });
+    }).catch(err => console.warn("Email notification failed:", err));
 
     // Success — redirect to thank you page
     window.location.href = "thankyou.html";

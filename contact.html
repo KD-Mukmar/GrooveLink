@@ -3,37 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GrooveLink</title>
+  <title>GrooveLink - Contact</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
-<header>
-  <div class="logo">GrooveLink</div>
 
-  <!-- Hamburger Menu For Smaller Screens -->
-<div class="hamburger" id="hamburger">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
-
-
-  <nav id="navMenu">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="events.html">Events</a></li>
-      <li><a href="submit.html">Submit Event</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
-</header>
+  <header>
+    <div class="logo">GrooveLink</div>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+    <nav id="navMenu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="submit.html">Submit Event</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <main>
-    <section class="submit-cta">
+    <section class="submit-cta reveal">
       <h2>Contact GrooveLink</h2>
-      <form action="thankyou.html" method="post" class="event-form">
+      <form class="event-form" id="contactForm">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" required>
 
@@ -43,31 +37,27 @@
         <label for="message">Message</label>
         <textarea id="message" name="message" rows="4" required></textarea>
 
-       <button type="submit" class="btn submit-btn">Send Message</button>
+        <button type="submit" class="btn submit-btn">Send Message</button>
       </form>
     </section>
   </main>
 
- <script>
-    document.getElementById("event-form").addEventListener("submit", function(e) {
-        e.preventDefault();
-        // Simulate sending message
-        window.location.href = "thankyou.html";
-    });
-  </script>
-  
   <footer>
     <div class="footer-links">
       <a href="index.html">Home</a> |
-       <a href="about.html">About</a> |
+      <a href="about.html">About</a> |
       <a href="events.html">Events</a> |
-      <a href="submit.html">Submit</a> |
+      <a href="submit.html">Submit</a>
     </div>
-    <p>© 2025 GrooveLink. All rights reserved.</p>
+    <p>© 2025 GrooveLink SA. All rights reserved.</p>
   </footer>
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
 
   <script src="menu.js"></script>
   <script src="scroll.js"></script>
-
+  <script src="contact.js"></script>
 </body>
 </html>

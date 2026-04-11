@@ -32,13 +32,16 @@
       </p>
 
       <form class="event-form" id="eventForm">
+
+        <label for="organiser">Your Name / Organisation</label>
+        <input type="text" id="organiser" name="organiser" placeholder="e.g. Dance Hub Company" required>
+
         <label for="event-name">Event Name</label>
         <input type="text" id="event-name" name="event-name" required>
 
         <label for="location">City / Venue</label>
         <input type="text" id="location" name="location" required>
 
-        <!-- ✅ NEW: Province field -->
         <label for="province">Province</label>
         <select id="province" name="province" required>
           <option value="" disabled selected>Select province...</option>
@@ -88,7 +91,7 @@
     <p>© 2025 GrooveLink SA. All rights reserved.</p>
   </footer>
 
-  <!-- Supabase SDK (must come before supabase.js and submit.js) -->
+  <!-- Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
 

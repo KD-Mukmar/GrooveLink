@@ -12,14 +12,15 @@ document.getElementById("eventForm").addEventListener("submit", async function (
   submitBtn.disabled = true;
 
   const newEvent = {
+    organiser:   document.getElementById("organiser").value.trim(),
     name:        document.getElementById("event-name").value.trim(),
     location:    document.getElementById("location").value.trim(),
+    province:    document.getElementById("province").value,
     date:        document.getElementById("date").value,
+    category:    document.getElementById("category").value,
     description: document.getElementById("description").value.trim(),
     link:        document.getElementById("event-link").value.trim() || null,
-    category:    document.getElementById("category").value,
-    province:    document.getElementById("province").value,
-    approved:    false, // Pending your review — set to true in Supabase dashboard
+    approved:    false, // Pending your review — approve in Supabase Table Editor
   };
 
   try {

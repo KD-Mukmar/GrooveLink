@@ -4,9 +4,6 @@
 // to send email notification
 // =============================================
 
-const SUPABASE_URL = "https://qkdtgcvmygpivdcikhic.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrZHRnY3ZteWdwaXZkY2lraGljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NzcwNDAsImV4cCI6MjA4OTQ1MzA0MH0.wGCRhq3coiQtI47fQVwfjA_45-t6ekzIoL6EbEQhIlk"; // same anon key from supabase.js
-
 document.getElementById("eventForm").addEventListener("submit", async function (e) {
   e.preventDefault();
 

@@ -1,8 +1,11 @@
 // =============================================
 // submit.js — GrooveLink Event Submission
-// Saves to Supabase (approved = false by default)
-// You approve events in the Supabase dashboard
+// Saves to Supabase, then calls Edge Function
+// to send email notification
 // =============================================
+
+const SUPABASE_URL = "https://qkdtgcvmygpivdcikhic.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrZHRnY3ZteWdwaXZkY2lraGljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NzcwNDAsImV4cCI6MjA4OTQ1MzA0MH0.wGCRhq3coiQtI47fQVwfjA_45-t6ekzIoL6EbEQhIlk"; // same anon key from supabase.js
 
 document.getElementById("eventForm").addEventListener("submit", async function (e) {
   e.preventDefault();
@@ -20,12 +23,23 @@ document.getElementById("eventForm").addEventListener("submit", async function (
     category:    document.getElementById("category").value,
     description: document.getElementById("description").value.trim(),
     link:        document.getElementById("event-link").value.trim() || null,
-    approved:    false, // Pending your review — approve in Supabase Table Editor
+    approved:    false,
   };
 
   try {
+    // Step 1: Save event to Supabase
     const { error } = await window._supabase.from("events").insert([newEvent]);
     if (error) throw error;
+
+    // Step 2: Call Edge Function to send email notification
+    await fetch(`${SUPABASE_URL}/functions/v1/notify-new-event`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+      },
+      body: JSON.stringify({ record: newEvent }),
+    });
 
     // Success — redirect to thank you page
     window.location.href = "thankyou.html";

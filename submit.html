@@ -3,21 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GrooveLink</title>
+  <title>GrooveLink - Submit Event</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <header>
     <div class="logo">GrooveLink</div>
-
-     <!-- Hamburger Menu For Smaller Screens -->
     <div class="hamburger" id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </div>
-
     <nav id="navMenu">
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -32,24 +27,39 @@
   <main>
     <section class="submit-cta reveal">
       <h2>Submit Your Dance Event</h2>
-      <form action="events.html" method="post" class="event-form" id="eventForm">
+      <p style="color:#ccc; margin-bottom:1.5rem; font-size:0.95rem;">
+        Events are reviewed before going live — usually within 24 hours.
+      </p>
+
+      <form class="event-form" id="eventForm">
         <label for="event-name">Event Name</label>
         <input type="text" id="event-name" name="event-name" required>
 
-        <label for="location">Location</label>
+        <label for="location">City / Venue</label>
         <input type="text" id="location" name="location" required>
+
+        <!-- ✅ NEW: Province field -->
+        <label for="province">Province</label>
+        <select id="province" name="province" required>
+          <option value="" disabled selected>Select province...</option>
+          <option value="Gauteng">Gauteng</option>
+          <option value="Western Cape">Western Cape</option>
+          <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+          <option value="Eastern Cape">Eastern Cape</option>
+          <option value="Limpopo">Limpopo</option>
+          <option value="Mpumalanga">Mpumalanga</option>
+          <option value="North West">North West</option>
+          <option value="Free State">Free State</option>
+          <option value="Northern Cape">Northern Cape</option>
+          <option value="Nationwide">Nationwide</option>
+        </select>
 
         <label for="date">Date</label>
         <input type="date" id="date" name="date" required>
 
-        <label for="description">Event Description</label>
-        <textarea id="description" name="description" rows="4" required></textarea>
-
-        <label for="event-link">Event Link (https://...)</label>
-        <input type="url" id="event-link" name="event-link" placeholder="https://...">
-
         <label for="category">Category</label>
         <select id="category" name="category" required>
+          <option value="" disabled selected>Select category...</option>
           <option value="Hip Hop">Hip Hop</option>
           <option value="Ballet">Ballet</option>
           <option value="Contemporary">Contemporary</option>
@@ -57,26 +67,33 @@
           <option value="Other">Other</option>
         </select>
 
+        <label for="description">Event Description</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+
+        <label for="event-link">Event Link (optional)</label>
+        <input type="url" id="event-link" name="event-link" placeholder="https://...">
+
         <button type="submit" class="btn submit-btn">Submit Event</button>
       </form>
     </section>
   </main>
 
-  <script src="submit.js"></script>
-
-   <footer>
+  <footer>
     <div class="footer-links">
       <a href="index.html">Home</a> |
       <a href="about.html">About</a> |
       <a href="events.html">Events</a> |
       <a href="contact.html">Contact</a>
     </div>
-    <p>© 2025 GrooveLink. All rights reserved.</p>
+    <p>© 2025 GrooveLink SA. All rights reserved.</p>
   </footer>
+
+  <!-- Supabase SDK (must come before supabase.js and submit.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
 
   <script src="menu.js"></script>
   <script src="scroll.js"></script>
-
+  <script src="submit.js"></script>
 </body>
 </html>
-

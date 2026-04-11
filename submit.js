@@ -1,33 +1,37 @@
-document.getElementById("eventForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+// =============================================
+// submit.js — GrooveLink Event Submission
+// Saves to Supabase (approved = false by default)
+// You approve events in the Supabase dashboard
+// =============================================
 
-    // Get form values
-    const name = document.getElementById("event-name").value;
-    const location = document.getElementById("location").value;
-    const date = document.getElementById("date").value;
-    const description = document.getElementById("description").value;
-    const link = document.getElementById("event-link").value;
-    const category = document.getElementById("category").value;
+document.getElementById("eventForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
 
-    // Create event object
-    const newEvent = {
-        name,
-        location,
-        date,
-        description,
-        link,
-        category
-    };
+  const submitBtn = document.querySelector(".submit-btn");
+  submitBtn.textContent = "Submitting...";
+  submitBtn.disabled = true;
 
-    // Get existing events from localStorage or create empty array
-    let events = JSON.parse(localStorage.getItem("events")) || [];
+  const newEvent = {
+    name:        document.getElementById("event-name").value.trim(),
+    location:    document.getElementById("location").value.trim(),
+    date:        document.getElementById("date").value,
+    description: document.getElementById("description").value.trim(),
+    link:        document.getElementById("event-link").value.trim() || null,
+    category:    document.getElementById("category").value,
+    province:    document.getElementById("province").value,
+    approved:    false, // Pending your review — set to true in Supabase dashboard
+  };
 
-    // Add new event
-    events.push(newEvent);
+  try {
+    const { error } = await window._supabase.from("events").insert([newEvent]);
+    if (error) throw error;
 
-    // Save back to localStorage
-    localStorage.setItem("events", JSON.stringify(events));
-
-    alert("Event submitted successfully!");
-    window.location.href = "events.html"; // Redirect to events page
+    // Success — redirect to thank you page
+    window.location.href = "thankyou.html";
+  } catch (err) {
+    console.error("Submission error:", err);
+    alert("Something went wrong submitting your event. Please try again.");
+    submitBtn.textContent = "Submit Event";
+    submitBtn.disabled = false;
+  }
 });

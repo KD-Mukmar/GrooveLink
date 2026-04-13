@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GrooveLink Admin</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .admin-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .admin-header h2 {
+      font-size: 1.8rem;
+      background: linear-gradient(90deg, #003366, #00bfff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .admin-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tab-btn {
+      padding: 0.5rem 1.5rem;
+      border-radius: 30px;
+      border: 1px solid #00bfff;
+      background: transparent;
+      color: #00bfff;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: linear-gradient(90deg, #003366, #00bfff);
+      color: white;
+      border-color: transparent;
+    }
+
+    .admin-card {
+      background: #1f1f1f;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 10px rgba(8, 132, 235, 0.3);
+    }
+
+    .admin-card h3 {
+      color: #00bfff;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .admin-card p {
+      color: #ccc;
+      font-size: 0.9rem;
+      margin: 0.2rem 0;
+    }
+
+    .admin-card .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.75rem 0;
+    }
+
+    .admin-card .tag {
+      background: rgba(0, 191, 255, 0.1);
+      border: 1px solid #00bfff;
+      color: #00bfff;
+      padding: 0.2rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    .admin-card .actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .approve-btn {
+      background: linear-gradient(90deg, #006600, #00cc44);
+      color: white;
+      border: none;
+      padding: 0.5rem 1.25rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: 0.3s;
+    }
+
+    .approve-btn:hover {
+      opacity: 0.85;
+      transform: scale(1.05);
+    }
+
+    .reject-btn {
+      background: linear-gradient(90deg, #660000, #cc2200);
+      color: white;
+      border: none;
+      padding: 0.5rem 1.25rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: 0.3s;
+    }
+
+    .reject-btn:hover {
+      opacity: 0.85;
+      transform: scale(1.05);
+    }
+
+    .no-events {
+      text-align: center;
+      color: #aaa;
+      padding: 3rem;
+      font-size: 1rem;
+    }
+
+    /* Login form */
+    #loginSection {
+      max-width: 400px;
+      margin: 5rem auto;
+      padding: 2rem;
+      background: #1f1f1f;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(8, 132, 235, 0.3);
+      text-align: center;
+    }
+
+    #loginSection h2 {
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, #003366, #00bfff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    #loginSection input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 1rem;
+    }
+
+    #loginError {
+      color: #ff6b6b;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      display: none;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.2rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin-left: 0.5rem;
+    }
+
+    .status-approved {
+      background: rgba(0, 200, 0, 0.15);
+      color: #00cc44;
+      border: 1px solid #00cc44;
+    }
+
+    .status-rejected {
+      background: rgba(200, 0, 0, 0.15);
+      color: #cc2200;
+      border: 1px solid #cc2200;
+    }
+
+    .status-pending {
+      background: rgba(255, 165, 0, 0.15);
+      color: orange;
+      border: 1px solid orange;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">GrooveLink</div>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+    <nav id="navMenu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="submit.html">Submit Event</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Login Section -->
+  <div id="loginSection">
+    <h2>Admin Login</h2>
+    <input type="email" id="adminEmail" placeholder="Email">
+    <input type="password" id="adminPassword" placeholder="Password">
+    <p id="loginError">Invalid email or password. Please try again.</p>
+    <button class="btn" id="loginBtn">Login</button>
+  </div>
+
+  <!-- Admin Dashboard (hidden until logged in) -->
+  <div id="adminDashboard" style="display:none;">
+    <div class="admin-container">
+      <div class="admin-header">
+        <h2>Event Manager</h2>
+        <button class="btn" id="logoutBtn" style="font-size:0.85rem; padding:0.5rem 1rem;">Logout</button>
+      </div>
+
+      <div class="admin-tabs">
+        <button class="tab-btn active" data-tab="pending">Pending</button>
+        <button class="tab-btn" data-tab="approved">Approved</button>
+        <button class="tab-btn" data-tab="rejected">Rejected</button>
+      </div>
+
+      <div id="eventsContainer">
+        <p class="no-events">Loading events...</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="index.html">Home</a> |
+      <a href="about.html">About</a> |
+      <a href="events.html">Events</a> |
+      <a href="contact.html">Contact</a>
+    </div>
+    <p>© 2025 GrooveLink SA. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="menu.js"></script>
+
+  <script>
+    let currentTab = "pending";
+
+    // ── Login ────────────────────────────────────────────────────────────────
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      const email    = document.getElementById("adminEmail").value.trim();
+      const password = document.getElementById("adminPassword").value.trim();
+
+      const { error } = await window._supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        document.getElementById("loginError").style.display = "block";
+      } else {
+        showDashboard();
+      }
+    });
+
+    // ── Logout ───────────────────────────────────────────────────────────────
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      await window._supabase.auth.signOut();
+      document.getElementById("loginSection").style.display = "block";
+      document.getElementById("adminDashboard").style.display = "none";
+    });
+
+    // ── Show dashboard ───────────────────────────────────────────────────────
+    function showDashboard() {
+      document.getElementById("loginSection").style.display = "none";
+      document.getElementById("adminDashboard").style.display = "block";
+      loadEvents();
+    }
+
+    // ── Check if already logged in ───────────────────────────────────────────
+    window._supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) showDashboard();
+    });
+
+    // ── Tabs ─────────────────────────────────────────────────────────────────
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentTab = btn.dataset.tab;
+        loadEvents();
+      });
+    });
+
+    // ── Load events ──────────────────────────────────────────────────────────
+    async function loadEvents() {
+      const container = document.getElementById("eventsContainer");
+      container.innerHTML = `<p class="no-events">Loading...</p>`;
+
+      let query = window._supabase.from("events").select("*").order("created_at", { ascending: false });
+
+      if (currentTab === "pending")  query = query.eq("approved", false).eq("rejected", false);
+      if (currentTab === "approved") query = query.eq("approved", true);
+      if (currentTab === "rejected") query = query.eq("rejected", true);
+
+      const { data, error } = await query;
+
+      if (error) {
+        container.innerHTML = `<p class="no-events" style="color:#ff6b6b;">Error loading events.</p>`;
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        container.innerHTML = `<p class="no-events">No ${currentTab} events.</p>`;
+        return;
+      }
+
+      container.innerHTML = "";
+      data.forEach(ev => {
+        const card = document.createElement("div");
+        card.classList.add("admin-card");
+        card.innerHTML = `
+          <h3>
+            ${ev.name}
+            ${ev.approved ? '<span class="status-badge status-approved">Approved</span>' : ""}
+            ${ev.rejected ? '<span class="status-badge status-rejected">Rejected</span>' : ""}
+            ${!ev.approved && !ev.rejected ? '<span class="status-badge status-pending">Pending</span>' : ""}
+          </h3>
+          <div class="meta">
+            <span class="tag">📍 ${ev.location} · ${ev.province || ""}</span>
+            <span class="tag">📅 ${ev.date}</span>
+            <span class="tag">${ev.category || "Other"}</span>
+            ${ev.organiser ? `<span class="tag">👤 ${ev.organiser}</span>` : ""}
+          </div>
+          <p>${ev.description || ""}</p>
+          ${ev.link ? `<p><a href="${ev.link}" target="_blank" style="color:#00bfff;">🔗 ${ev.link}</a></p>` : ""}
+          <div class="actions">
+            ${!ev.approved ? `<button class="approve-btn" data-id="${ev.id}">✅ Approve</button>` : ""}
+            ${!ev.rejected ? `<button class="reject-btn" data-id="${ev.id}">❌ Reject</button>` : ""}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      // Approve buttons
+      document.querySelectorAll(".approve-btn").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const id = btn.dataset.id;
+          await window._supabase.from("events").update({ approved: true, rejected: false }).eq("id", id);
+          loadEvents();
+        });
+      });
+
+      // Reject buttons
+      document.querySelectorAll(".reject-btn").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const id = btn.dataset.id;
+          await window._supabase.from("events").update({ rejected: true, approved: false }).eq("id", id);
+          loadEvents();
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>

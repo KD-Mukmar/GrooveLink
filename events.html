@@ -27,10 +27,14 @@
   <main>
     <section class="featured-events reveal" id="events">
       <h2>Dance Events Across South Africa</h2>
+      <p class="section-sub">Browse competitions, workshops, battles and more</p>
 
-      <section class="search-filter">
-        <input type="text" id="searchBar" placeholder="Search events or location...">
+      <!-- Spotlight: next upcoming event -->
+      <div id="spotlight-container"></div>
 
+      <!-- Filters -->
+      <div class="search-filter">
+        <input type="text" id="searchBar" placeholder="🔍 Search events or location...">
         <select id="categoryFilter">
           <option value="">All Categories</option>
           <option value="Hip Hop">Hip Hop</option>
@@ -39,8 +43,6 @@
           <option value="Cultural">Cultural</option>
           <option value="Other">Other</option>
         </select>
-
-        <!-- ✅ NEW: Province filter -->
         <select id="provinceFilter">
           <option value="">All Provinces</option>
           <option value="Gauteng">Gauteng</option>
@@ -54,30 +56,34 @@
           <option value="Northern Cape">Northern Cape</option>
           <option value="Nationwide">Nationwide</option>
         </select>
-
         <input type="date" id="dateFilter">
-      </section>
+      </div>
 
-      <div class="event-cards">
-        <!-- Populated by events.js from Supabase -->
+      <!-- Event cards grid -->
+      <div class="event-cards" id="event-cards-container">
+        <!-- Skeleton loaders -->
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line short"></div></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line short"></div></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line short"></div></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line short"></div></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line short"></div></div></div>
+        <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line short"></div></div></div>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="footer-links">
-      <a href="index.html">Home</a> |
-      <a href="about.html">About</a> |
-      <a href="submit.html">Submit</a> |
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="submit.html">Submit</a>
       <a href="contact.html">Contact</a>
     </div>
     <p>© 2025 GrooveLink SA. All rights reserved.</p>
   </footer>
 
-  <!-- Supabase SDK (must come before supabase.js and events.js) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
-
   <script src="menu.js"></script>
   <script src="scroll.js"></script>
   <script src="events.js"></script>

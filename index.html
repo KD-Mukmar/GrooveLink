@@ -9,84 +9,78 @@
 <body>
 
   <!-- Header -->
-<header>
-  <div class="logo">GrooveLink</div>
-
-  <!-- Hamburger Menu For Smaller Screens -->
-  <div class="hamburger" id="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-
-  <nav id="navMenu">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="events.html">Events</a></li>
-      <li><a href="submit.html">Submit Event</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
-</header>
-
+  <header>
+    <div class="logo">GrooveLink</div>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+    <nav id="navMenu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="submit.html">Submit Event</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <!-- Hero Section -->
   <section class="hero reveal">
     <video autoplay loop muted playsinline>
       <source src="vid1.mp4" type="video/mp4">
     </video>
-  <div class="hero-overlay">
-    <h1>Find Your Next Move.</h1>
-    <h2>South Africa’s home for dance competitions, workshops & more.</h2>
-    <div class="hero-buttons">
-      <a href="events.html" class="btn">View Events</a>
-      <a href="submit.html" class="btn">Submit Your Event</a>
+    <div class="hero-overlay">
+      <h1>Find Your Next Move.</h1>
+      <h2>South Africa's home for dance competitions, workshops & more.</h2>
+      <div class="hero-buttons">
+        <a href="events.html" class="btn">View Events</a>
+        <a href="submit.html" class="btn">Submit Your Event</a>
+      </div>
     </div>
-  </div>
   </section>
 
-<!--Our mission-->
-<section class="why-groovelink reveal">
+  <!-- Mission -->
+  <section class="why-groovelink reveal">
     <h2>Our Mission</h2>
-    <italics>
-    <p>At GrooveLink, we aim to connect South Africa’s dancers, choreographers, and fans to every major dance event with the click of a button.</p>
-    <br>
+    <p>At GrooveLink, we connect South Africa's dancers, choreographers, and fans to every major dance event with the click of a button.</p>
     <p>We create a vibrant hub to discover competitions, showcase talent, and celebrate our diverse dance scene.</p>
-    <br>
-    <p>One step ahead, one beat at a time, we bring the community together—on stage, in the audience, or behind the scenes!</p>
-    </italics>
+    <p>One step ahead, one beat at a time — we bring the community together.</p>
   </section>
 
-  <!-- Featured Events -->
+  <!-- Featured Events — loaded from Supabase -->
   <section class="featured-events reveal" id="events-list">
-  <div class="events_list-overlay">
-    <h2>Upcoming Events</h2>
-    <div class="event-cards">
-      <!-- Event Card 1 -->
-      <div class="event-card reveal">
-        <h3>MOVE! Nationals</h3>
-        <p>3–6 Oct 2025 • Multiple Regions</p>
-        <a href="https://www.thetda.co.za/pages/move">More Info</a>
+    <div class="events_list-overlay">
+      <h2>Upcoming Events</h2>
+      <div class="event-cards" id="home-event-cards">
+        <!-- Skeleton loaders -->
+        <div class="skeleton-card">
+          <div class="skeleton skeleton-img"></div>
+          <div class="skeleton-body">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-line medium"></div>
+            <div class="skeleton skeleton-line short"></div>
+          </div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton skeleton-img"></div>
+          <div class="skeleton-body">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-line medium"></div>
+            <div class="skeleton skeleton-line short"></div>
+          </div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton skeleton-img"></div>
+          <div class="skeleton-body">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-line medium"></div>
+            <div class="skeleton skeleton-line short"></div>
+          </div>
+        </div>
       </div>
-
-      <!-- Event Card 2 -->
-      <div class="event-card reveal">
-        <h3>DanceStar SA</h3>
-        <p>13–16 Nov 2025 • Johannesburg</p>
-        <a href="https://dancestar.org/dancestar-live-qualifiers/pretoria">More Info</a>
-      </div>
-
-      <!-- Event Card 3 -->
-      <div class="event-card reveal">
-        <h3>Talent Africa</h3>
-        <p>01 October 2025 • Nationwide</p>
-        <a href="https://www.talentafrica.co.za/">More Info</a>
-      </div>
+      <a href="events.html" class="view-all">View All Events →</a>
     </div>
-    <a href="events.html" class="view-all">View All Events</a>
-  </div>
   </section>
 
   <!-- Why GrooveLink -->
@@ -95,38 +89,114 @@
     <div class="features">
       <div class="feature reveal">
         <h3>Connect</h3>
-        <p>Discover local and national dance events.</p>
+        <p>Discover local and national dance events across all 9 provinces.</p>
       </div>
       <div class="feature reveal">
         <h3>Compete</h3>
-        <p>Find your next dance battle or stage moment.</p>
+        <p>Find your next dance battle, audition, or stage moment.</p>
       </div>
       <div class="feature reveal">
         <h3>Grow</h3>
-        <p>Build your skills and expand your network.</p>
+        <p>Build your skills, expand your network, and elevate your craft.</p>
       </div>
     </div>
   </section>
 
   <!-- Submit CTA -->
-  <section class="submit-cta reveal" id="submit">
-    <h2>Are you hosting an event? Share it with the community.</h2>
+  <section class="submit-cta reveal">
+    <h2>Hosting an Event? Share It With the Community.</h2>
     <a href="submit.html" class="btn">Submit Your Event</a>
   </section>
 
   <!-- Footer -->
   <footer>
-    <h3>Contact me via:</h3>
+    <h3 style="margin-bottom:0.75rem; font-size:1rem; color:#aaa;">Connect with us</h3>
     <div class="footer-links">
       <a href="https://www.instagram.com/kd.mukmar/">Instagram</a>
       <a href="https://www.tiktok.com/@groovelink?lang=en">TikTok</a>
-      <a href="contact.html">Email</a><p>| dieunedortmukmar@gmail.com |</p>
+      <a href="contact.html">Email</a>
+      <span style="color:#555;">dieunedortmukmar@gmail.com</span>
     </div>
     <p>© 2025 GrooveLink SA. All rights reserved.</p>
   </footer>
 
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
   <script src="menu.js"></script>
   <script src="scroll.js"></script>
+
+  <script>
+    // Load 3 upcoming approved events from Supabase for homepage cards
+    (async () => {
+      const container = document.getElementById("home-event-cards");
+
+      try {
+        const today = new Date().toISOString().split("T")[0];
+        const { data, error } = await window._supabase
+          .from("events")
+          .select("*")
+          .eq("approved", true)
+          .gte("date", today)
+          .order("date", { ascending: true })
+          .limit(3);
+
+        if (error) throw error;
+
+        function categoryClass(cat) {
+          const map = {
+            "Hip Hop": "cat-hip-hop",
+            "Ballet": "cat-ballet",
+            "Contemporary": "cat-contemporary",
+            "Cultural": "cat-cultural",
+            "Other": "cat-other",
+          };
+          return map[cat] || "cat-other";
+        }
+
+        function formatDate(dateStr) {
+          const d = new Date(dateStr);
+          return d.toLocaleDateString("en-ZA", { day: "numeric", month: "long", year: "numeric" });
+        }
+
+        container.innerHTML = "";
+
+        if (!data || data.length === 0) {
+          container.innerHTML = `<p style="color:#aaa;">No upcoming events found.</p>`;
+          return;
+        }
+
+        data.forEach(ev => {
+          const card = document.createElement("div");
+          card.classList.add("event-card", "reveal");
+          card.innerHTML = `
+            ${ev.image_url
+              ? `<img class="event-card-image" src="${ev.image_url}" alt="${ev.name}" loading="lazy">`
+              : `<div class="event-card-image-placeholder">🎵</div>`
+            }
+            <div class="event-card-body">
+              <span class="event-category ${categoryClass(ev.category)}">${ev.category || "Event"}</span>
+              <h3>${ev.link ? `<a href="${ev.link}" target="_blank" rel="noopener">${ev.name}</a>` : ev.name}</h3>
+              <p>📍 ${ev.location}${ev.province ? ` · ${ev.province}` : ""}</p>
+              <p>📅 ${formatDate(ev.date)}</p>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+
+        // Trigger reveal on new cards
+        document.querySelectorAll(".reveal").forEach(el => {
+          if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+            el.classList.add("active");
+          }
+        });
+
+      } catch (err) {
+        console.error("Homepage events error:", err);
+        container.innerHTML = `<p style="color:#aaa;">Could not load events.</p>`;
+      }
+    })();
+  </script>
 
 </body>
 </html>

@@ -5,8 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GrooveLink SA</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Supabase SDK loaded in head so it's ready before body scripts -->
+
+  <!-- Load Supabase SDK first, then init client immediately -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Initialise Supabase immediately — available globally before body loads
+    const SUPABASE_URL  = "https://qkdtgcvmygpivdcikhic.supabase.co";
+    const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrZHRnY3ZteWdwaXZkY2lraGljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NzcwNDAsImV4cCI6MjA4OTQ1MzA0MH0.wGCRhq3coiQtI47fQVwfjA_45-t6ekzIoL6EbEQhIlk"; // ← paste your anon key
+    window._supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  </script>
 </head>
 <body>
 
@@ -55,7 +62,7 @@
     <div class="events_list-overlay">
       <h2>Upcoming Events</h2>
       <div class="event-cards" id="home-event-cards">
-        <!-- Skeleton loaders shown while fetching -->
+        <!-- Skeleton loaders -->
         <div class="skeleton-card">
           <div class="skeleton skeleton-img"></div>
           <div class="skeleton-body">
@@ -107,7 +114,6 @@
   <!-- Submit CTA -->
   <section class="submit-cta reveal">
     <h2>Hosting an Event? Share It With the Community.</h2>
-    <!-- ✅ Fixed: using plain anchor tag, not a form button -->
     <a href="submit.html" class="btn">Submit Your Event</a>
   </section>
 
@@ -122,31 +128,28 @@
     <p>© 2025 GrooveLink SA. All rights reserved.</p>
   </footer>
 
-  <script src="supabase.js"></script>
   <script src="menu.js"></script>
   <script src="scroll.js"></script>
 
   <script>
-    // Load 3 upcoming approved events from Supabase for homepage cards
-    window.addEventListener("DOMContentLoaded", async () => {
+    function categoryClass(cat) {
+      const map = {
+        "Hip Hop":      "cat-hip-hop",
+        "Ballet":       "cat-ballet",
+        "Contemporary": "cat-contemporary",
+        "Cultural":     "cat-cultural",
+        "Other":        "cat-other",
+      };
+      return map[cat] || "cat-other";
+    }
+
+    function formatDate(dateStr) {
+      const d = new Date(dateStr);
+      return d.toLocaleDateString("en-ZA", { day: "numeric", month: "long", year: "numeric" });
+    }
+
+    async function loadHomeEvents() {
       const container = document.getElementById("home-event-cards");
-
-      function categoryClass(cat) {
-        const map = {
-          "Hip Hop":      "cat-hip-hop",
-          "Ballet":       "cat-ballet",
-          "Contemporary": "cat-contemporary",
-          "Cultural":     "cat-cultural",
-          "Other":        "cat-other",
-        };
-        return map[cat] || "cat-other";
-      }
-
-      function formatDate(dateStr) {
-        const d = new Date(dateStr);
-        return d.toLocaleDateString("en-ZA", { day: "numeric", month: "long", year: "numeric" });
-      }
-
       try {
         const today = new Date().toISOString().split("T")[0];
         const { data, error } = await window._supabase
@@ -168,7 +171,19 @@
 
         data.forEach(ev => {
           const card = document.createElement("div");
-          card.classList.add("event-card", "reveal");
+          card.classList.add("event-card");
+
+          // Make entire card clickable
+          if (ev.link) {
+            card.classList.add("event-card--clickable");
+            card.setAttribute("role", "link");
+            card.setAttribute("tabindex", "0");
+            card.addEventListener("click", () => window.open(ev.link, "_blank", "noopener"));
+            card.addEventListener("keydown", e => {
+              if (e.key === "Enter") window.open(ev.link, "_blank", "noopener");
+            });
+          }
+
           card.innerHTML = `
             ${ev.image_url
               ? `<img class="event-card-image" src="${ev.image_url}" alt="${ev.name}" loading="lazy">`
@@ -176,29 +191,23 @@
             }
             <div class="event-card-body">
               <span class="event-category ${categoryClass(ev.category)}">${ev.category || "Event"}</span>
-              <h3>${ev.link
-                ? `<a href="${ev.link}" target="_blank" rel="noopener">${ev.name}</a>`
-                : ev.name
-              }</h3>
+              <h3>${ev.name}</h3>
               <p>📍 ${ev.location}${ev.province ? ` · ${ev.province}` : ""}</p>
               <p>📅 ${formatDate(ev.date)}</p>
+              ${ev.link ? `<p class="card-tap-hint">Tap to view event →</p>` : ""}
             </div>
           `;
           container.appendChild(card);
-        });
-
-        // Trigger scroll reveal on new cards
-        document.querySelectorAll(".reveal").forEach(el => {
-          if (el.getBoundingClientRect().top < window.innerHeight - 100) {
-            el.classList.add("active");
-          }
         });
 
       } catch (err) {
         console.error("Homepage events error:", err);
         container.innerHTML = `<p style="color:#aaa; text-align:center;">Could not load events.</p>`;
       }
-    });
+    }
+
+    // Run immediately — _supabase is already initialised in <head>
+    loadHomeEvents();
   </script>
 
 </body>

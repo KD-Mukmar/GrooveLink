@@ -35,6 +35,7 @@
       <!-- Filters -->
       <div class="search-filter">
         <input type="text" id="searchBar" placeholder="🔍 Search events or location...">
+
         <select id="categoryFilter">
           <option value="">All Categories</option>
           <option value="Hip Hop">Hip Hop</option>
@@ -43,6 +44,7 @@
           <option value="Cultural">Cultural</option>
           <option value="Other">Other</option>
         </select>
+
         <select id="provinceFilter">
           <option value="">All Provinces</option>
           <option value="Gauteng">Gauteng</option>
@@ -56,7 +58,14 @@
           <option value="Northern Cape">Northern Cape</option>
           <option value="Nationwide">Nationwide</option>
         </select>
+
         <input type="date" id="dateFilter">
+
+        <!-- ✅ NEW: Sort filter -->
+        <select id="sortFilter">
+          <option value="earliest">📅 Earliest First</option>
+          <option value="latest">📅 Latest First</option>
+        </select>
       </div>
 
       <!-- Event cards grid -->

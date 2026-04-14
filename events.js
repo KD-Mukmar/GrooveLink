@@ -1,12 +1,12 @@
 // =============================================
 // events.js — GrooveLink Events Page
 // Supabase fetch, spotlight card, image support,
-// category badges, filtering
+// category badges, clickable cards, date sorting
 // =============================================
 
 window.addEventListener("DOMContentLoaded", async function () {
-  const container       = document.getElementById("event-cards-container");
-  const spotlightWrap   = document.getElementById("spotlight-container");
+  const container     = document.getElementById("event-cards-container");
+  const spotlightWrap = document.getElementById("spotlight-container");
 
   // ── Helpers ──────────────────────────────────────────────────────────────
   function formatDate(dateStr) {
@@ -39,11 +39,11 @@ window.addEventListener("DOMContentLoaded", async function () {
     allEvents = data;
   } catch (err) {
     console.error("Supabase fetch error:", err);
-    container.innerHTML = `<p style="color:#ff6b6b; text-align:center;">Could not load events. Please try again later.</p>`;
+    container.innerHTML = `<p style="color:#ff6b6b; text-align:center; grid-column:1/-1;">Could not load events. Please try again later.</p>`;
     return;
   }
 
-  // ── Spotlight: next upcoming event ────────────────────────────────────────
+  // ── Spotlight: next upcoming event ───────────────────────────────────────
   const today    = new Date().toISOString().split("T")[0];
   const upcoming = allEvents.filter(ev => ev.date >= today);
   const spotlight = upcoming[0];
@@ -51,7 +51,7 @@ window.addEventListener("DOMContentLoaded", async function () {
   if (spotlight && spotlightWrap) {
     spotlightWrap.innerHTML = `
       <p class="spotlight-label">⭐ Next Up</p>
-      <div class="spotlight-card">
+      <div class="spotlight-card ${spotlight.link ? 'spotlight-card--clickable' : ''}" ${spotlight.link ? `onclick="window.open('${spotlight.link}', '_blank')" role="link" tabindex="0"` : ""}>
         ${spotlight.image_url
           ? `<img class="spotlight-card-image" src="${spotlight.image_url}" alt="${spotlight.name}" loading="lazy">`
           : `<div class="spotlight-card-placeholder">🎵</div>`
@@ -62,13 +62,13 @@ window.addEventListener("DOMContentLoaded", async function () {
           <p>📍 ${spotlight.location}${spotlight.province ? ` · ${spotlight.province}` : ""}</p>
           <p>📅 ${formatDate(spotlight.date)}</p>
           <p style="margin-top:0.5rem;">${spotlight.description || ""}</p>
-          ${spotlight.link ? `<a href="${spotlight.link}" target="_blank" rel="noopener" class="btn" style="margin-top:1rem; margin-left:0;">More Info →</a>` : ""}
+          ${spotlight.link ? `<span class="btn" style="margin-top:1rem; margin-left:0; cursor:pointer;">More Info →</span>` : ""}
         </div>
       </div>
     `;
   }
 
-  // ── Display events ────────────────────────────────────────────────────────
+  // ── Display events — entire card is clickable ─────────────────────────────
   function displayEvents(list) {
     container.innerHTML = "";
 
@@ -80,6 +80,19 @@ window.addEventListener("DOMContentLoaded", async function () {
     list.forEach((ev) => {
       const card = document.createElement("div");
       card.classList.add("event-card");
+
+      // Make entire card clickable if there's a link
+      if (ev.link) {
+        card.classList.add("event-card--clickable");
+        card.setAttribute("role", "link");
+        card.setAttribute("tabindex", "0");
+        card.style.cursor = "pointer";
+        card.addEventListener("click", () => window.open(ev.link, "_blank", "noopener"));
+        card.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") window.open(ev.link, "_blank", "noopener");
+        });
+      }
+
       card.innerHTML = `
         ${ev.image_url
           ? `<img class="event-card-image" src="${ev.image_url}" alt="${ev.name}" loading="lazy">`
@@ -87,13 +100,11 @@ window.addEventListener("DOMContentLoaded", async function () {
         }
         <div class="event-card-body">
           <span class="event-category ${categoryClass(ev.category)}">${ev.category || "Event"}</span>
-          <h3>${ev.link
-            ? `<a href="${ev.link}" target="_blank" rel="noopener">${ev.name}</a>`
-            : ev.name
-          }</h3>
+          <h3>${ev.name}</h3>
           <p>📍 ${ev.location}${ev.province ? ` · ${ev.province}` : ""}</p>
           <p>📅 ${formatDate(ev.date)}</p>
           <p>${ev.description || ""}</p>
+          ${ev.link ? `<p class="card-tap-hint">Tap to view event →</p>` : ""}
         </div>
       `;
       container.appendChild(card);
@@ -103,14 +114,15 @@ window.addEventListener("DOMContentLoaded", async function () {
   // Initial render
   displayEvents(allEvents);
 
-  // ── Filtering ─────────────────────────────────────────────────────────────
-  function filterEvents() {
+  // ── Filtering & Sorting ───────────────────────────────────────────────────
+  function filterAndSort() {
     const searchTerm = document.getElementById("searchBar").value.toLowerCase().trim();
     const category   = document.getElementById("categoryFilter").value;
     const province   = document.getElementById("provinceFilter")?.value || "";
     const dateStr    = document.getElementById("dateFilter").value;
+    const sortOrder  = document.getElementById("sortFilter").value;
 
-    const filtered = allEvents.filter((ev) => {
+    let filtered = allEvents.filter((ev) => {
       const matchesSearch =
         !searchTerm ||
         ev.name?.toLowerCase().includes(searchTerm) ||
@@ -132,11 +144,18 @@ window.addEventListener("DOMContentLoaded", async function () {
       return matchesSearch && matchesCategory && matchesProvince && matchesDate;
     });
 
+    // Sort
+    filtered.sort((a, b) => {
+      const diff = new Date(a.date) - new Date(b.date);
+      return sortOrder === "latest" ? -diff : diff;
+    });
+
     displayEvents(filtered);
   }
 
-  document.getElementById("searchBar").addEventListener("input", filterEvents);
-  document.getElementById("categoryFilter").addEventListener("change", filterEvents);
-  document.getElementById("dateFilter").addEventListener("change", filterEvents);
-  document.getElementById("provinceFilter")?.addEventListener("change", filterEvents);
+  document.getElementById("searchBar").addEventListener("input", filterAndSort);
+  document.getElementById("categoryFilter").addEventListener("change", filterAndSort);
+  document.getElementById("dateFilter").addEventListener("change", filterAndSort);
+  document.getElementById("provinceFilter")?.addEventListener("change", filterAndSort);
+  document.getElementById("sortFilter").addEventListener("change", filterAndSort);
 });

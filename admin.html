@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <style>
     .admin-container {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 2rem auto;
       padding: 0 1.5rem;
     }
@@ -30,6 +30,7 @@
       display: flex;
       gap: 1rem;
       margin-bottom: 2rem;
+      flex-wrap: wrap;
     }
 
     .tab-btn {
@@ -59,14 +60,14 @@
 
     .admin-card h3 {
       color: #00bfff;
-      margin-bottom: 0.5rem;
-      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+      font-size: 1.2rem;
     }
 
     .admin-card p {
       color: #ccc;
       font-size: 0.9rem;
-      margin: 0.2rem 0;
+      margin: 0.3rem 0;
     }
 
     .admin-card .meta {
@@ -85,10 +86,40 @@
       font-size: 0.8rem;
     }
 
+    /* ✅ NEW: Organiser details section */
+    .organiser-details {
+      background: rgba(0,191,255,0.05);
+      border: 1px solid rgba(0,191,255,0.15);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .organiser-details h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #00bfff;
+      margin-bottom: 0.5rem;
+    }
+
+    .organiser-details p {
+      font-size: 0.85rem;
+      color: #aaa;
+      margin: 0.2rem 0;
+    }
+
+    .organiser-details a {
+      color: #00bfff;
+      text-decoration: underline;
+    }
+
     .admin-card .actions {
       display: flex;
       gap: 1rem;
       margin-top: 1rem;
+      flex-wrap: wrap;
     }
 
     .approve-btn {
@@ -191,6 +222,16 @@
       color: orange;
       border: 1px solid orange;
     }
+
+    /* Event image preview */
+    .event-image-preview {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 8px;
+      margin: 0.75rem 0;
+      border: 1px solid rgba(0,191,255,0.2);
+    }
   </style>
 </head>
 <body>
@@ -220,7 +261,7 @@
     <button class="btn" id="loginBtn">Login</button>
   </div>
 
-  <!-- Admin Dashboard (hidden until logged in) -->
+  <!-- Admin Dashboard -->
   <div id="adminDashboard" style="display:none;">
     <div class="admin-container">
       <div class="admin-header">
@@ -257,13 +298,11 @@
   <script>
     let currentTab = "pending";
 
-    // ── Login ────────────────────────────────────────────────────────────────
+    // Login
     document.getElementById("loginBtn").addEventListener("click", async () => {
       const email    = document.getElementById("adminEmail").value.trim();
       const password = document.getElementById("adminPassword").value.trim();
-
       const { error } = await window._supabase.auth.signInWithPassword({ email, password });
-
       if (error) {
         document.getElementById("loginError").style.display = "block";
       } else {
@@ -271,26 +310,26 @@
       }
     });
 
-    // ── Logout ───────────────────────────────────────────────────────────────
+    // Logout
     document.getElementById("logoutBtn").addEventListener("click", async () => {
       await window._supabase.auth.signOut();
       document.getElementById("loginSection").style.display = "block";
       document.getElementById("adminDashboard").style.display = "none";
     });
 
-    // ── Show dashboard ───────────────────────────────────────────────────────
+    // Show dashboard
     function showDashboard() {
       document.getElementById("loginSection").style.display = "none";
       document.getElementById("adminDashboard").style.display = "block";
       loadEvents();
     }
 
-    // ── Check if already logged in ───────────────────────────────────────────
+    // Check if already logged in
     window._supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) showDashboard();
     });
 
-    // ── Tabs ─────────────────────────────────────────────────────────────────
+    // Tabs
     document.querySelectorAll(".tab-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
@@ -300,7 +339,7 @@
       });
     });
 
-    // ── Load events ──────────────────────────────────────────────────────────
+    // Load events
     async function loadEvents() {
       const container = document.getElementById("eventsContainer");
       container.innerHTML = `<p class="no-events">Loading...</p>`;
@@ -338,10 +377,21 @@
             <span class="tag">📍 ${ev.location} · ${ev.province || ""}</span>
             <span class="tag">📅 ${ev.date}</span>
             <span class="tag">${ev.category || "Other"}</span>
-            ${ev.organiser ? `<span class="tag">👤 ${ev.organiser}</span>` : ""}
           </div>
+          ${ev.image_url ? `<img class="event-image-preview" src="${ev.image_url}" alt="${ev.name}">` : ""}
           <p>${ev.description || ""}</p>
-          ${ev.link ? `<p><a href="${ev.link}" target="_blank" style="color:#00bfff;">🔗 ${ev.link}</a></p>` : ""}
+          ${ev.link ? `<p><a href="${ev.link}" target="_blank">🔗 ${ev.link}</a></p>` : ""}
+
+          <!-- ✅ NEW: Organiser details for verification -->
+          <div class="organiser-details">
+            <h4>🔍 Organiser Details (for verification)</h4>
+            <p><strong>Name/Org:</strong> ${ev.organiser || "Not provided"}</p>
+            <p><strong>Email:</strong> ${ev.organiser_email ? `<a href="mailto:${ev.organiser_email}">${ev.organiser_email}</a>` : "Not provided"}</p>
+            ${ev.organiser_phone ? `<p><strong>Phone:</strong> <a href="tel:${ev.organiser_phone}">${ev.organiser_phone}</a></p>` : ""}
+            ${ev.organiser_instagram ? `<p><strong>Instagram:</strong> <a href="https://instagram.com/${ev.organiser_instagram.replace('@','')}" target="_blank">${ev.organiser_instagram}</a></p>` : ""}
+            ${ev.organiser_facebook ? `<p><strong>Facebook:</strong> <a href="${ev.organiser_facebook}" target="_blank">View Page</a></p>` : ""}
+          </div>
+
           <div class="actions">
             ${!ev.approved ? `<button class="approve-btn" data-id="${ev.id}">✅ Approve</button>` : ""}
             ${!ev.rejected ? `<button class="reject-btn" data-id="${ev.id}">❌ Reject</button>` : ""}

@@ -33,16 +33,14 @@
 
       <form class="event-form" id="eventForm">
 
-        <label for="organiser">Your Name / Organisation</label>
-        <input type="text" id="organiser" name="organiser" placeholder="e.g. Dance Hub Company" required>
-
-        <label for="event-name">Event Name</label>
+        <!-- Event Details -->
+        <label for="event-name">Event Name *</label>
         <input type="text" id="event-name" name="event-name" required>
 
-        <label for="location">City / Venue</label>
+        <label for="location">City / Venue *</label>
         <input type="text" id="location" name="location" required>
 
-        <label for="province">Province</label>
+        <label for="province">Province *</label>
         <select id="province" name="province" required>
           <option value="" disabled selected>Select province...</option>
           <option value="Gauteng">Gauteng</option>
@@ -57,10 +55,10 @@
           <option value="Nationwide">Nationwide</option>
         </select>
 
-        <label for="date">Date</label>
+        <label for="date">Date *</label>
         <input type="date" id="date" name="date" required>
 
-        <label for="category">Category</label>
+        <label for="category">Category *</label>
         <select id="category" name="category" required>
           <option value="" disabled selected>Select category...</option>
           <option value="Hip Hop">Hip Hop</option>
@@ -70,11 +68,38 @@
           <option value="Other">Other</option>
         </select>
 
-        <label for="description">Event Description</label>
+        <label for="description">Event Description *</label>
         <textarea id="description" name="description" rows="4" required></textarea>
 
         <label for="event-link">Event Link (optional)</label>
         <input type="url" id="event-link" name="event-link" placeholder="https://...">
+
+        <!-- ✅ NEW: Event Image/Poster -->
+        <label for="image-url">Event Poster / Image URL (optional)</label>
+        <input type="url" id="image-url" name="image-url" placeholder="https://...">
+        <p style="color:#aaa; font-size:0.82rem; margin-top:-0.8rem;">
+          Upload your poster to <a href="https://imgbb.com" target="_blank" style="color:#00bfff;">ImgBB</a> or <a href="https://cloudinary.com" target="_blank" style="color:#00bfff;">Cloudinary</a>, then paste the link here.
+        </p>
+
+        <!-- Organiser Details (for verification) -->
+        <hr style="border:none; border-top:1px solid rgba(255,255,255,0.1); margin:1rem 0;">
+        <h3 style="font-family:'Bebas Neue', sans-serif; font-size:1.4rem; color:#00bfff; margin-bottom:0.5rem;">Organiser Details (for verification)</h3>
+        <p style="color:#aaa; font-size:0.85rem; margin-bottom:1rem;">We use this to verify the event is legitimate. Not shown publicly.</p>
+
+        <label for="organiser">Your Name / Organisation *</label>
+        <input type="text" id="organiser" name="organiser" required>
+
+        <label for="organiser-email">Email Address *</label>
+        <input type="email" id="organiser-email" name="organiser-email" required>
+
+        <label for="organiser-phone">Phone Number (optional)</label>
+        <input type="tel" id="organiser-phone" name="organiser-phone" placeholder="+27...">
+
+        <label for="organiser-instagram">Instagram Handle (optional)</label>
+        <input type="text" id="organiser-instagram" name="organiser-instagram" placeholder="@yourhandle">
+
+        <label for="organiser-facebook">Facebook Page (optional)</label>
+        <input type="url" id="organiser-facebook" name="organiser-facebook" placeholder="https://facebook.com/...">
 
         <button type="submit" class="btn submit-btn">Submit Event</button>
       </form>
@@ -91,10 +116,8 @@
     <p>© 2025 GrooveLink SA. All rights reserved.</p>
   </footer>
 
-  <!-- Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
-
   <script src="menu.js"></script>
   <script src="scroll.js"></script>
   <script src="submit.js"></script>
